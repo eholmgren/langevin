@@ -1,4 +1,4 @@
 Langevin Project
 ----------------
 
-Eric Holmgren
+*Eric Holmgren*
