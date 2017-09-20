@@ -5,7 +5,7 @@ import numpy as np
 def test_read_energy_read():
     '''Tests if the function reads and returns for given input file'''
 
-    test_file = '''
+    test_string = '''
     #test input energy
     #x energy
     0   -2
