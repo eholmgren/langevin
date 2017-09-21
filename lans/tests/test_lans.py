@@ -15,7 +15,7 @@ def test_read_energy_read():
     4 3 1 1
     '''
 
-    test_file = io.StringIO(test_string)
+    test_file = io.StringIO(test_string) #something funky with this line, fails test
     idx, pos, pot, force = lans.read_energy(test_file)
     assert np.isclose(idx, [0, 1, 2, 3, 4])
     assert np.isclose(pos, [-2, -1, 0, 0, 3])
@@ -43,7 +43,7 @@ def test_write_output_format():
         attempt = f.read()
     with open(r'.\lans\tests\output_correct_example.txt','r') as g:
         correct = g.read()
-        
+
     assert(attempt==correct)
 
 
