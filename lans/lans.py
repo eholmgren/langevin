@@ -24,7 +24,7 @@ def get_arguments():
     parser.add_argument('--damping', type=float, default=DAMPING, help='Damping coefficient')
     parser.add_argument('--timestep', type=float, default=TIMESTEP, help='Time step')
     parser.add_argument('--totaltime', type=float, default=TOTALTIME, help='Total time')
-    
+
     return parser.parse_args()
 
 
@@ -47,6 +47,7 @@ def read_energy(input_file):
                 else:
                     print('Bad data in line', line_num)
 
+    assert pos == sorted(pos), "Unsorted positions in Potential File"
     return idx, pos, pot, force
 
 def write_output(output_file, index, time, position, velocity):

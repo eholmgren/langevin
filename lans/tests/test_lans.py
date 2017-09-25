@@ -1,6 +1,7 @@
 import lans
 import io
 import numpy as np
+import unittest
 
 def bad_test_read_energy_read():
     '''Tests if the function reads and returns for given input file'''
@@ -27,6 +28,17 @@ def test_read_energy_file():
 
     test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file)
+
+def test_read_energy_sorted():
+    '''Asserts that an error is thrown unless the positions are ordered'''
+    
+    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_unsorted.txt'
+
+    #idx, pos, pot, force = lans.read_energy(test_file)
+    #assertRaises(AssertionError, lans.read_energy, test_file) #TODO this doesn't work right
+
+    #with assertRaises(AssertionError):
+    #    lans.read_energy(test_file)
 
 def test_write_output_format():
     '''Tests if the function can write up a mock file'''
