@@ -2,7 +2,7 @@ import lans
 import io
 import numpy as np
 
-def test_read_energy_read():
+def bad_test_read_energy_read():
     '''Tests if the function reads and returns for given input file'''
 
     test_string = '''
@@ -25,13 +25,13 @@ def test_read_energy_read():
 def test_read_energy_file():
     '''Tests if the function can read mock file'''
 
-    test_file = r'.\lans\tests\potential_example.txt'
+    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file)
 
 def test_write_output_format():
     '''Tests if the function can write up a mock file'''
 
-    output_file = r'.\lans\tests\output_example.txt'
+    output_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\output_example.txt'
     index = [1, 2, 3, 4, 5]
     time = [0, .1, .2, .3, .4]
     position = [0.04, -1, 9.33, .00000002, 0]
@@ -41,10 +41,19 @@ def test_write_output_format():
 
     with open(output_file,'r') as f:
         attempt = f.read()
-    with open(r'.\lans\tests\output_correct_example.txt','r') as g:
+    with open(r'C:\Users\Eric\CHE477\Langevin\lans\tests\output_correct_example.txt','r') as g:
         correct = g.read()
 
     assert(attempt==correct)
 
 
-    
+def test_lookup_interpolate():
+    '''Tests if the function can read out an interpolated potential and force from the tabulated potential file'''
+    positions = [-1.0,0,.1,.25,2.5]
+    pos = [0.0,0.1,0.2,0.3,0.4,0.5]
+    pot = [1.0,5.1,.36,0.0,-0.4,-0.4]
+    force = [0.0,0.1,1.0,-0.5,-0.4,3.14]
+    for i in positions:
+        ux, fx = lans.lookup(i, pos, pot, force)
+        print(ux,fx)
+

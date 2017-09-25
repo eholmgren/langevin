@@ -1,8 +1,9 @@
 import argparse
+import numpy as np
 
 #defaults
-ENERGY = r'.\tests\potential_example.txt'
-POSITION = 0.0
+ENERGY = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+POSITION =0.0
 VELOCITY = 0.0
 TEMPERATURE = 100.0
 DAMPING = 1.0
@@ -55,6 +56,13 @@ def write_output(output_file, index, time, position, velocity):
         line_num = 0
         for line in range(len(index)):
             f.write('{0} {1:0.06f} {2:0.06f} {3:0.06f}\n'.format(index[line], time[line], position[line], velocity[line])) #TODO fancier float format
+
+def lookup(x,pos,pot,force):
+    '''Gives potential and force for a position. Interpolates if necessary'''
+
+    ux = np.interp(x,pos,pot)
+    fx = np.interp(x,pos,force)
+    return ux, fx
 
 def main():
     args = get_arguments()
