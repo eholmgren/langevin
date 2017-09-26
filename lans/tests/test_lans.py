@@ -29,6 +29,11 @@ def test_read_energy_file():
     test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file)
 
+def test_read_energy_plot():
+
+    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+    idx, pos, pot, force = lans.read_energy(test_file,plot=True)
+
 def test_read_energy_sorted():
     '''Asserts that an error is thrown unless the positions are ordered'''
     
@@ -65,7 +70,48 @@ def test_lookup_interpolate():
     pos = [0.0,0.1,0.2,0.3,0.4,0.5]
     pot = [1.0,5.1,.36,0.0,-0.4,-0.4]
     force = [0.0,0.1,1.0,-0.5,-0.4,3.14]
+    ux_corr = [1.0, 1.0, 5.1, 0.18, -0.4]
+    fx_corr = [0.0, 0.0, 0.1, 0.25, 3.14]
+    itr = 0
     for i in positions:
         ux, fx = lans.lookup(i, pos, pot, force)
-        print(ux,fx)
+        assert (np.isclose(ux,ux_corr[itr]))
+        assert (np.isclose(fx,fx_corr[itr]))
+        itr+=1
 
+def test_step_xxxx(): #TODO have this actually test something
+    class args:
+        def __init__():
+            pass
+
+        timestep = .1
+        totaltime = 100.0
+        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        position = 1.0
+        velocity = 0.0
+        damping = 1.0
+        temperature = 0
+    xi = 0.0
+    vi = 0.0
+    idx,pos,pot,force = lans.read_energy(args.energy)
+    a,b=lans.step(xi,vi,pos,pot,force,args)
+    print(a,b)
+    #assert(np.isclose(a,6))
+
+test_step_xxxx()
+
+def test_run_iters():
+    class args:
+        def __init__():
+            pass
+
+        timestep = .1
+        totaltime = 100.0
+        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        position = 1.0
+        velocity = 0.0
+        damping = 1.0
+        temperature = 100.0
+        
+    xi,vi = lans.run(args)
+    assert len(xi) == 1001
