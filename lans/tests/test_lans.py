@@ -30,6 +30,7 @@ def test_read_energy_file():
     idx, pos, pot, force = lans.read_energy(test_file)
 
 def test_read_energy_plot():
+    '''Tests if the function can plot energy'''
 
     test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file,plot=True)
@@ -115,3 +116,18 @@ def test_run_iters():
         
     xi,vi = lans.run(args)
     assert len(xi) == 1001
+
+def test_run_plot():
+    class args:
+        def __init__():
+            pass
+
+        timestep = .1
+        totaltime = 100.0
+        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        position = 1.0
+        velocity = 0.0
+        damping = 10.0
+        temperature = 1.0
+        
+    xi,vi = lans.run(args,plot=True)
