@@ -76,6 +76,7 @@ def read_energy(input_file,plot=False):
 
 def write_output(output_file, index, time, position, velocity):
     '''Writes an output file'''
+
     with open(output_file,'w') as f:
         print('Writing output data to file:', output_file)
         line_num = 0
@@ -84,8 +85,8 @@ def write_output(output_file, index, time, position, velocity):
 
 def lookup(x,pos,pot,force):
     '''Gives potential and force for a position. Interpolates if necessary'''
+    
     x = float(x)
-
     ux = np.interp(x,pos,pot)
     fx = np.interp(x,pos,force)
     return ux, fx
@@ -104,6 +105,7 @@ def step(xi,vi,pos,pot,force,args):
 
 def run(args,plot=False):
     '''Runs all steps of the simulation'''
+
     iters = int(args.totaltime / args.timestep)
     idx, pos, pot, force = read_energy(args.energy, plot)
 
@@ -139,6 +141,16 @@ def run(args,plot=False):
 
     return x,v
 
+
+
+def start():
+    print('STARTING...')
+    
+    sv = SimVis()
+    start_server(sv)
+    asyncio.ensure_future(main(sv))
+
+    
 
 
 def main():

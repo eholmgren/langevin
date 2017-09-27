@@ -102,6 +102,8 @@ def test_step_xxxx(): #TODO have this actually test something
 test_step_xxxx()
 
 def test_run_iters():
+    '''Tests whether the simulation runs the correct number of iterations based on the time parameters'''
+
     class args:
         def __init__():
             pass
@@ -118,6 +120,8 @@ def test_run_iters():
     assert len(xi) == 1001
 
 def test_run_plot():
+    '''Tests whether the trajectory can be plotted'''
+
     class args:
         def __init__():
             pass
