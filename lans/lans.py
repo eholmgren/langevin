@@ -16,7 +16,7 @@ TOTALTIME = 100.0
 
 
 
-def get_arguments():
+def get_arguments(): # pragma: no cover
     '''Get arguments from command line'''
 
     parser = argparse.ArgumentParser(description='Langevin Dynamics Simulator')
@@ -144,7 +144,7 @@ def run(args,plot=False):
     return x,v
 
 
-async def main(sv):
+async def main(sv): # pragma: no cover
     #create a simple energy
 
     x = np.linspace(-1, 1, 100)
@@ -157,7 +157,7 @@ async def main(sv):
         sv.set_position(np.random.random(1))
         await asyncio.sleep(0.5)
 
-def start():
+def start(): # pragma: no cover
     sv = SimVis()
     start_server(sv)
     asyncio.ensure_future(main(sv))

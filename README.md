@@ -6,7 +6,7 @@ Langevin Project
 
 *Eric Holmgren*
 
-This project does something that I do not yet know.
+This project is a one dimensional Langevin Dynamics simulator.
 
 * It is in python
 
