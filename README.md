@@ -1,3 +1,6 @@
+![code coverage](img/coverage.svg)
+
+
 Langevin Project
 ----------------
 

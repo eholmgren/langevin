@@ -1,3 +1,5 @@
 numpy
 argparse
 matplotlib
+tornado
+pillow
