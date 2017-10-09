@@ -22,10 +22,7 @@ def test_read_energy_sorted():
     test_file = test_dir+r'\potential_unsorted.txt'
 
     #idx, pos, pot, force = lans.read_energy(test_file)
-    #assertRaises(AssertionError, lans.read_energy, test_file) #TODO this doesn't work right
-
-    #with assertRaises(AssertionError):
-    #    lans.read_energy(test_file)
+    #assertRaises(AssertionError, lans.read_energy, test_file) #TODO this doesn't work right. How do I check if code raises assertion error when it should?
 
 def test_write_output_format():
     '''Tests if the function can write up a mock file'''
@@ -48,6 +45,7 @@ def test_write_output_format():
 
 def test_lookup_interpolate():
     '''Tests if the function can read out an interpolated potential and force from the tabulated potential file'''
+
     positions = [-1.0,0,.1,.25,2.5]
     pos = [0.0,0.1,0.2,0.3,0.4,0.5]
     pot = [1.0,5.1,.36,0.0,-0.4,-0.4]
@@ -61,7 +59,9 @@ def test_lookup_interpolate():
         assert (np.isclose(fx,fx_corr[itr]))
         itr+=1
 
-def test_step_xxxx(): #TODO have this actually test something
+def test_step_calculate():
+    '''Tests whether the velocity of a single timestep is calculated correctly'''
+    
     class args:
         def __init__():
             pass
@@ -71,16 +71,15 @@ def test_step_xxxx(): #TODO have this actually test something
         energy = test_dir+r'\potential_example.txt'
         position = 1.0
         velocity = 0.0
-        damping = 1.0
-        temperature = 0
+        damping = 0.0
+        temperature = 0.0
+
     xi = 0.0
-    vi = 0.0
+    vi = 0.1
     idx,pos,pot,force = lans.read_energy(args.energy)
     a,b=lans.step(xi,vi,pos,pot,force,args)
-    print(a,b)
-    #assert(np.isclose(a,6))
-
-test_step_xxxx()
+    assert(np.isclose(a,0.01)) #checks if position is correct
+    assert(np.isclose(b,0.0886525)) #checks if velocity is correct in this case
 
 def test_run_iters():
     '''Tests whether the simulation runs the correct number of iterations based on the time parameters'''
