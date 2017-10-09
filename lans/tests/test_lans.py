@@ -27,7 +27,7 @@ def test_read_energy_sorted():
 def test_write_output_format():
     '''Tests if the function can write up a mock file'''
 
-    output_file = test_dir+r'\output_example.txt'
+    output_file = test_dir+r'\output_write_example.txt'
     index = [1, 2, 3, 4, 5]
     time = [0, .1, .2, .3, .4]
     position = [0.04, -1, 9.33, .00000002, 0]
