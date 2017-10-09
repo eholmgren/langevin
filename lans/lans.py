@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os import path
 test_dir = path.join(path.dirname(__file__), 'tests')
+np.random.seed(0)
 
 #defaults
 ENERGY = test_dir+r'\potential_example.txt' #r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
