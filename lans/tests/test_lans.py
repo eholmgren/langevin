@@ -1,24 +1,25 @@
 import lans
 import io
 import numpy as np
-import unittest
+from os import path
+test_dir = path.join(path.dirname(__file__), '../tests')
 
 def test_read_energy_file():
     '''Tests if the function can read mock file'''
 
-    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+    test_file = test_dir+r'\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file)
 
 def test_read_energy_plot():
     '''Tests if the function can plot energy'''
 
-    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+    test_file = test_dir+r'\potential_example.txt'
     idx, pos, pot, force = lans.read_energy(test_file,plot=True)
 
 def test_read_energy_sorted():
     '''Asserts that an error is thrown unless the positions are ordered'''
     
-    test_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_unsorted.txt'
+    test_file = test_dir+r'\potential_unsorted.txt'
 
     #idx, pos, pot, force = lans.read_energy(test_file)
     #assertRaises(AssertionError, lans.read_energy, test_file) #TODO this doesn't work right
@@ -29,7 +30,7 @@ def test_read_energy_sorted():
 def test_write_output_format():
     '''Tests if the function can write up a mock file'''
 
-    output_file = r'C:\Users\Eric\CHE477\Langevin\lans\tests\output_example.txt'
+    output_file = test_dir+r'\output_example.txt'
     index = [1, 2, 3, 4, 5]
     time = [0, .1, .2, .3, .4]
     position = [0.04, -1, 9.33, .00000002, 0]
@@ -39,7 +40,7 @@ def test_write_output_format():
 
     with open(output_file,'r') as f:
         attempt = f.read()
-    with open(r'C:\Users\Eric\CHE477\Langevin\lans\tests\output_correct_example.txt','r') as g:
+    with open(test_dir+r'\output_correct_example.txt','r') as g:
         correct = g.read()
 
     assert(attempt==correct)
@@ -67,7 +68,7 @@ def test_step_xxxx(): #TODO have this actually test something
 
         timestep = .1
         totaltime = 100.0
-        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        energy = test_dir+r'\potential_example.txt'
         position = 1.0
         velocity = 0.0
         damping = 1.0
@@ -90,11 +91,12 @@ def test_run_iters():
 
         timestep = .1
         totaltime = 100.0
-        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        energy = test_dir+r'\potential_example.txt'
         position = 1.0
         velocity = 0.0
         damping = 1.0
         temperature = 100.0
+        output = test_dir+r'\output_example.txt'
         
     xi,vi = lans.run(args)
     assert len(xi) == 1001
@@ -108,10 +110,11 @@ def test_run_plot():
 
         timestep = .1
         totaltime = 100.0
-        energy = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+        energy = test_dir+r'\potential_example.txt'
         position = 1.0
         velocity = 0.0
         damping = 10.0
         temperature = 1.0
+        output = test_dir+r'\output_example.txt'
         
     xi,vi = lans.run(args,plot=True)

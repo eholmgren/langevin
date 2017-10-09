@@ -1,17 +1,21 @@
-from .visualization import SimVis, start_server
+#from .visualization import SimVis, start_server
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
-import asyncio
+#import asyncio
+from os import path
+test_dir = path.join(path.dirname(__file__), 'tests')
 
 #defaults
-ENERGY = r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
+ENERGY = test_dir+r'\potential_example.txt' #r'C:\Users\Eric\CHE477\Langevin\lans\tests\potential_example.txt'
 POSITION =1.0
 VELOCITY = 0.0
-TEMPERATURE = 100.0
+TEMPERATURE = 1.0
 DAMPING = 1.0
-TIMESTEP = 0.1
-TOTALTIME = 100.0
+TIMESTEP = 0.01
+TOTALTIME = 10.0
+OUTPUT = test_dir+r'\output_example.txt' #r'C:\Users\Eric\CHE477\Langevin\lans\tests\output_example.txt'
+
 
 
 
@@ -27,6 +31,7 @@ def get_arguments(): # pragma: no cover
     parser.add_argument('--damping', type=float, default=DAMPING, help='Damping coefficient')
     parser.add_argument('--timestep', type=float, default=TIMESTEP, help='Time step')
     parser.add_argument('--totaltime', type=float, default=TOTALTIME, help='Total time')
+    parser.add_argument('--output', type=str, default=OUTPUT, help='File of Output')
 
     return parser.parse_args()
 
@@ -102,7 +107,7 @@ def step(xi,vi,pos,pot,force,args):
 
     dvdt = drag + solvent + fpotential
     vj = vi + dvdt*args.timestep
-    xj = xi + vj*args.timestep
+    xj = xi + vi*args.timestep
     return xj,vj
 
 def run(args,plot=False):
@@ -113,11 +118,16 @@ def run(args,plot=False):
 
     xi,vi = args.position, args.velocity
     x,v = [xi],[vi]
+    t = [0.0]
     for s in range(iters):
         xi,vi = step(xi,vi,pos,pot,force,args)
+        ti = (s+1)*args.timestep
         x.append(xi)
         v.append(vi)
+        t.append(ti)
         #print(xi,vi)
+
+    write_output(args.output,idx,t,x,v)
 
     if plot==True:
         fig = plt.figure()
@@ -143,7 +153,7 @@ def run(args,plot=False):
 
     return x,v
 
-
+'''
 async def main(sv): # pragma: no cover
     #create a simple energy
 
@@ -163,10 +173,10 @@ def start(): # pragma: no cover
     asyncio.ensure_future(main(sv))
     loop = asyncio.get_event_loop()
     loop.run_forever()
-
-
-
 '''
+
+
+
 def main():
     args = get_arguments()
     print(args)
@@ -174,5 +184,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-'''
+
 
